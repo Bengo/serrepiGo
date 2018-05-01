@@ -12,6 +12,8 @@ import (
 func main() {
 	gpioPort := flag.Int("n", 0, "BCM Gpio port number")
 	d := flag.Duration("d", 0, "duration")
+	state := flag.Int("s", 0, "GPIO state:  - 0 : low  - 1 : high")
+
 	flag.Parse()
 
 	if *gpioPort == 0 {
@@ -24,18 +26,28 @@ func main() {
 		os.Exit(2)
 	}
 
-	fmt.Printf("Activation du port gpio BCM %d pour %s a létat 0 \n", *gpioPort, *d)
+	if *state != 0 && *state != 1 {
+		fmt.Println("Veuillez specifier un état valide  0 ou 1 -s")
+		os.Exit(3)
+	}
+
+	fmt.Printf("Activation du port gpio BCM %d pour %s a létat %d \n", *gpioPort, *d, *state)
 	err := rpio.Open()
 	if err != nil {
 		fmt.Print(err)
 	}
 	pin := rpio.Pin(*gpioPort)
 	pin.Output() // Output mode
-	pin.Low()    // Set pin High
+
+	if *state == 0 {
+		pin.Low()
+	} else {
+		pin.High()
+	}
 	time.Sleep(*d)
-	pin.High()
+	pin.Toggle()
 	pin.Input()
 	rpio.Close()
-	fmt.Printf("Le port gpio BCM %d a ete active %s a l'état 0\n", *gpioPort, *d)
+	fmt.Printf("Le port gpio BCM %d a ete active %s a l'état %d \n", *gpioPort, *d, *state)
 	os.Exit(0)
 }

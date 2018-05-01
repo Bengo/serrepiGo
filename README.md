@@ -14,8 +14,8 @@ https://github.com/stianeikeland/go-rpio
 Thanks !!
 
 
-## pinOutLow
-Outil ecrit en go permettant de passer l'état d'un port gpio en sortie à l'état bas pour une durée déterminée.
+## pinOut
+Outil ecrit en go permettant de passer l'état d'un port gpio en sortie à l'état souhaité pour une durée déterminée.
 
 Peut être utile, entre autres, pour activer un relais de manière récurrente (par exemple via crontab
 ) 
@@ -25,49 +25,29 @@ Peut être utile, entre autres, pour activer un relais de manière récurrente (
 Pour builder pour une raspbian, 
 
 ```
-env GOOS=linux GOARCH=arm GOARM=5 go build -o pinOutHigh
+cd pinOut
+env GOOS=linux GOARCH=arm GOARM=5 go build -o pinOu
 ```
  * Paramètres acceptés :
 ```
-./pinOutLow -h
+./pinOut -h
 
-Usage of ./pinOutLow:
+Usage of ./pinOut:
   -d duration
     	duration
   -n int
     	BCM Gpio port number
+  -s int
+    	GPIO state:  - 0 : low  - 1 : high
+
 ```
  * Usage :
  
- Par exemple l'arrosage de la serre se fait via l'éléctrovanne branché sur le relais commandé par le port GPIO BCM 17
+ Par exemple l'arrosage de la serre se fait via l'éléctrovanne branché sur le relais commandé par le port GPIO BCM 17.
+ Pour que le robinet soit ouvert l'état du port 17 doit être à 0
  
  ``
- sudo ./pinOutLow -n 17 -d 60s
+ sudo ./pinOutLow -n 17 -d 60s -s 0
  ``
  ouvre le robinet permettant d'arroser la serre pendant 1 minute
  
- 
-## pinOutHigh
-Outil ecrit en go permettant de passer l'état d'un port gpio en sortie à l'état haut pour une durée déterminée.
-
-Peut être utile, entre autres, pour activer un relais de manière récurrente (par exemple via crontab
-)
- * Build
-
-Pour builder pour une raspbian, après installation de go et de https://github.com/stianeikeland/go-rpio
-
-```
-env GOOS=linux GOARCH=arm GOARM=5 go build -o pinOutHigh
-```
- * Paramètres acceptés :
-```
-./pinOutHigh -h
-
-Usage of ./pinOutHigh:
-  -d duration
-    	duration
-  -n int
-    	BCM Gpio port number
-```
- * Usage :
-  non averé pour la gestion de la serre
