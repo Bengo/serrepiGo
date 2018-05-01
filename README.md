@@ -1,5 +1,5 @@
 # serrepiGo
-Outils de gestion de la serre avec un raspbery pi sous Raspbian
+Outils de gestion de la serre avec un raspberry pi sous Raspbian
 
 ## pinOutLow
 Outil ecrit en go permettant de passer l'état d'un port gpio en sortie à l'état bas pour une durée déterminée.
