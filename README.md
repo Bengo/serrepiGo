@@ -1,6 +1,19 @@
 # serrepiGo
 Outils de gestion de la serre avec un raspberry pi sous Raspbian
 
+## dependances
+Installation de go, par exemple
+``
+snap install --classic go
+``
+
+Based on great work found on :
+
+https://github.com/stianeikeland/go-rpio
+
+Thanks !!
+
+
 ## pinOutLow
 Outil ecrit en go permettant de passer l'état d'un port gpio en sortie à l'état bas pour une durée déterminée.
 
@@ -9,7 +22,7 @@ Peut être utile, entre autres, pour activer un relais de manière récurrente (
 
  * Build
 
-Pour builder pour une raspbian, après installation de go et de https://github.com/stianeikeland/go-rpio
+Pour builder pour une raspbian, 
 
 ```
 env GOOS=linux GOARCH=arm GOARM=5 go build -o pinOutHigh
