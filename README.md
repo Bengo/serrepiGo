@@ -26,7 +26,7 @@ Pour builder pour une raspbian,
 
 ```
 cd pinOut
-env GOOS=linux GOARCH=arm GOARM=5 go build -o pinOu
+env GOOS=linux GOARCH=arm GOARM=5 go build -o pinOut
 ```
  * Paramètres acceptés :
 ```
@@ -51,3 +51,9 @@ Usage of ./pinOut:
  ``
  ouvre le robinet permettant d'arroser la serre pendant 1 minute
  
+
+ ##
+  env CC=arm-linux-gnueabi-gcc CGO_ENABLED=1 GOOS=linux GOARCH=arm GOARM=6 go build -o serrepi serrepi.go
+
+
+  rsync -avz --progress serrepi serrepi:/home/bengo/go
